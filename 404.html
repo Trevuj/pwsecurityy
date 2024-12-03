@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="404 Error - Page Not Found">
+    <title>404 Error - Page Not Found</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #00f7ff;
+            --secondary-color: #ff6b6b;
+            --background-color: #0a0a2e;
+            --text-color: #ffffff;
+            --terminal-bg: #1a1a2e;
+            --glow-color: rgba(0, 247, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes meteor {
+            0% {
+                transform: translateX(300%) translateY(-300%);
+                opacity: 1;
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-200%) translateY(200%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        html {
+            font-size: 16px;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            animation: pulse 4s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        .meteor-shower {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .meteor-shower::before,
+        .meteor-shower::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            animation: meteor 3s linear infinite;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .meteor-shower::after {
+            animation-delay: 1.5s;
+        }
+
+        .content {
+            text-align: center;
+            padding: min(4vw, 2.5rem);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 32px 0 rgba(31, 38, 135, 0.37),
+                inset 0 0 80px rgba(0, 247, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: min(95%, 800px);
+            position: relative;
+            z-index: 1;
+            margin: 2rem auto;
+            overflow: hidden;
+        }
+
+        .error-container {
+            margin-bottom: 2rem;
+        }
+
+        .error-code-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .error-code {
+            font-size: clamp(4rem, 15vw, 8rem);
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(45deg, var(--primary-color), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px var(--glow-color));
+            position: relative;
+            line-height: 1;
+        }
+
+        .error-shadow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            filter: blur(50px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .zero {
+            display: inline-block;
+            animation: float 4s ease-in-out infinite;
+            color: var(--secondary-color);
+        }
+
+        .error-gif {
+            position: relative;
+            margin: 2rem auto;
+            width: min(100%, 400px);
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 247, 255, 0.2);
+        }
+
+        .error-gif img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .scanner-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            animation: scan 2s linear infinite;
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+
+        .text {
+            margin: 2rem 0;
+        }
+
+        .text h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, var(--primary-color), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text p {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .terminal {
+            background: var(--terminal-bg);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1.5rem auto;
+            width: min(100%, 450px);
+            font-family: 'Space Mono', monospace;
+            position: relative;
+            border: 1px solid rgba(0, 247, 255, 0.2);
+        }
+
+        .terminal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terminal-dots::before,
+        .terminal-dots::after,
+        .terminal-dots {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .terminal-text {
+            color: var(--primary-color);
+            font-size: clamp(0.8rem, 2vw, 0.95rem);
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1em;
+            background: var(--primary-color);
+            margin-left: 4px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        .actions {
+            margin: 2rem 0;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            letter-spacing: 0.5px;
+        }
+
+        .primary-btn {
+            background: linear-gradient(45deg, var(--primary-color), #00a8ff);
+            color: var(--background-color);
+            font-weight: 700;
+            box-shadow: 0 0 30px var(--glow-color);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-effect {
+            position: absolute;
+            top: -50%;
+            left: -25%;
+            width: 150%;
+            height: 200%;
+            background: linear-gradient(
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: rotate(35deg);
+            transition: 0.5s;
+        }
+
+        .btn:hover .btn-effect {
+            transform: rotate(35deg) translate(100%, -100%);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px var(--glow-color);
+        }
+
+        .footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .planet {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--primary-color), #00a8ff);
+            border-radius: 50%;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 40px var(--glow-color);
+            animation: rotate 20s linear infinite;
+        }
+
+        .planet-ring {
+            position: absolute;
+            width: 150%;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(30deg);
+        }
+
+        .hub {
+            background: linear-gradient(45deg, var(--secondary-color), #ff416c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .content {
+                margin: 1rem auto;
+                padding: 1.5rem;
+            }
+            
+            .error-gif {
+                width: 100%;
+            }
+            
+            .terminal {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 1rem;
+            }
+            
+            .error-code {
+                font-size: clamp(3rem, 12vw, 4rem);
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .planet {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        @supports not (backdrop-filter: blur(10px)) {
+            .content {
+                background: rgba(10, 10, 46, 0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="meteor-shower"></div>
+    <main class="content">
+        <div class="error-container">
+            <div class="error-code-wrapper">
+                <h1 class="error-code">4<span class="zero">0</span>4</h1>
+                <div class="error-shadow"></div>
+                <div class="glitch-effect"></div>
+            </div>
+        </div>
+        
+        <div class="error-gif">
+            <img src="error.gif" alt="Error Animation" loading="lazy">
+            <div class="scanner-line"></div>
+        </div>
+
+        <div class="text">
+            <h2>System Malfunction</h2>
+            <p>The requested page has been lost in digital space</p>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="terminal-text">
+                    > ERROR_404: Page_Not_Found<br>
+                    > Location: Unknown<br>
+                    > Status: Missing in Action<br>
+                    <span class="cursor">_</span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="planet">
+                <div class="planet-ring"></div>
+            </div>
+            <p> Professor <span class="hub"> Redwan </span></p>
+        </footer>
+    </main>
+</body>
+</html>
